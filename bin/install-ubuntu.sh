@@ -5,10 +5,14 @@ sudo apt install python3-pip gawk &&\
 pip3 install pre-commit
 
 # terraform docs
+mkdir tmp
+cd tmp
 curl -Lo ./terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
 tar -xzf terraform-docs.tar.gz
 chmod +x terraform-docs
 sudo mv terraform-docs /usr/bin/
+cd ..
+rm -rf tmp
 
 curl -L "$(curl -sL https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && rm tflint.zip && sudo mv tflint /usr/bin/
 env GO111MODULE=on go get -u github.com/liamg/tfsec/cmd/tfsec
