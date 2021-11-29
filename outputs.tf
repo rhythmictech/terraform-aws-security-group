@@ -1,5 +1,4 @@
 
-output "tags_module" {
-  description = "Tags Module in it's entirety"
-  value       = module.tags
+output "security_group_id" {
+  value = local.security_group_id
 }
