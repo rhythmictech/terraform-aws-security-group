@@ -32,7 +32,8 @@ locals {
 
 resource "aws_security_group" "sg_lifecycle" {
   count       = var.create_before_destroy ? 1 : 0
-  name_prefix = var.name_prefix
+  name        = var.name
+  name_prefix = var.name_prefix != "" ? var.name_prefix : null
   description = var.description
   tags        = var.tags
   vpc_id      = var.vpc_id
@@ -44,7 +45,8 @@ resource "aws_security_group" "sg_lifecycle" {
 
 resource "aws_security_group" "sg_no_lifecycle" {
   count       = var.create_before_destroy ? 0 : 1
-  name_prefix = var.name_prefix
+  name        = var.name
+  name_prefix = var.name_prefix != "" ? var.name_prefix : null
   description = var.description
   tags        = var.tags
   vpc_id      = var.vpc_id

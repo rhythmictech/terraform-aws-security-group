@@ -27,8 +27,15 @@ variable "ingress_rules" {
   type        = list(map(any))
 }
 
+variable "name" {
+  default     = null
+  description = "Name to apply to this security group (Conflicts with name_prefix)"
+  type        = string
+}
+
 variable "name_prefix" {
-  description = "Name Prefix to apply to this security group"
+  default     = ""
+  description = "Name Prefix to apply to this security group (Conflicts with name)"
   type        = string
 }
 
