@@ -54,7 +54,7 @@ resource "aws_security_group" "sg_no_lifecycle" {
 
 resource "aws_security_group_rule" "ingress" {
   for_each = {
-    for rule in local.ingress_rules : "${rule.port}_${index(local.ingress_rules, rule)}_${rule.protocol}" => rule
+    for rule in local.ingress_rules : "${rule.port}_${rule.source}_${rule.protocol}" => rule
   }
   cidr_blocks              = length(regexall("^([0-9]{1,3}.?){4}/[0-9]{1,2}", each.value.source)) > 0 ? [each.value.source] : null
   description              = try(each.value.description[0], null)
@@ -71,7 +71,7 @@ resource "aws_security_group_rule" "ingress" {
 #tfsec:ignore:aws-vpc-no-public-egress-sgr
 resource "aws_security_group_rule" "egress" {
   for_each = {
-    for rule in local.egress_rules : "${rule.port}_${index(local.egress_rules, rule)}_${rule.protocol}" => rule
+    for rule in local.egress_rules : "${rule.port}_${rule.source}_${rule.protocol}" => rule
   }
   cidr_blocks              = length(regexall("^([0-9]{1,3}.?){4}/[0-9]{1,2}", each.value.source)) > 0 ? [each.value.source] : null
   description              = try(each.value.description[0], null)
